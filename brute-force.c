@@ -4,6 +4,9 @@
 
 #include<stdio.h>
 #include<malloc.h>
+#include <stdbool.h>
+#define MAX_V 100
+
 
 typedef struct node{
 	int x;
@@ -13,6 +16,11 @@ typedef struct node{
 graph **createAdjList(int *, int *);
 void viewList(graph **, int);
 void deleteGraph(graph **, int);
+int  bruteLongestPath(graph **g, int v);
+void dfsLongest(graph **g, int u, bool visited[], int depth, int *maxLen);
+void viewLongestPath(int len);
+int bestPath[MAX_V];
+int currentPath[MAX_V];
 
 int main(){
 	graph **g;
@@ -20,6 +28,10 @@ int main(){
 	
 	g = createAdjList(&v, &e);
 	viewList(g, v);
+
+	int longest = bruteLongestPath(g, v);
+    printf("\nLongest path length: %d\n", longest);
+	viewLongestPath(longest);
 	
 	deleteGraph(g, v);
 
@@ -32,7 +44,7 @@ graph **createAdjList(int *v, int *e){
 	int source, dest;
 	graph *temp = malloc(sizeof(graph));
 	// Open a file in read mode
-	fptr = fopen("tests/graph.in", "r"); 
+	fptr = fopen("tests/star.in", "r"); 
 	fscanf(fptr, "%d", v); 
 	fscanf(fptr, "%d", e);
 	
@@ -97,4 +109,54 @@ void deleteGraph(graph **g, int v){
 		}
 	}
 	free(g);
+}
+
+//brute-force
+int bruteLongestPath(graph **g, int v){ 
+    bool *visited = calloc(v, sizeof(bool)); //track visited vertices
+    int maxLen  = 0; //stores the length of the longest path found
+
+	//for each possible starting vertex i
+    for(int i = 0; i < v; i++){
+        //reset visited[] for each starting vertex
+        for(int j = 0; j < v; j++){
+            visited[j] = false;
+        }
+        visited[i] = true; //mark i as visited and start DFS from i
+		currentPath[0] = i; // initialize currentPath with the starting vertex
+        dfsLongest(g, i, visited, 0, &maxLen); // perform DFS from vertex i
+    }
+
+    free(visited);
+    return maxLen;
+}
+
+void dfsLongest(graph **g, int u, bool visited[], int depth, int *maxLen){
+	//update the max path length and store the current path if this one is longer
+    if(depth > *maxLen) {
+        *maxLen = depth;
+		for (int i = 0; i <= depth; i++) {
+				bestPath[i] = currentPath[i];
+			}
+		}
+
+	 //explore all unvisited neighbors of vertex u
+    for(graph *p = g[u]; p; p = p->next){
+		int w = p->x; //neighbor vertex index
+        if(!visited[w]){
+            visited[w] = true; //mark neighbor as visited
+			currentPath[depth + 1] = w; // add neighbor to current path
+            dfsLongest(g, w, visited, depth + 1, maxLen); //recurse with increased path length
+            visited[w] = false; //backtrack: unmark neighbor
+        }
+    }
+}
+
+void viewLongestPath(int len) {
+    printf("Longest path: ");
+    for (int i = 0; i <= len; i++) {
+        printf("%d", bestPath[i]);
+        if (i < len) printf(" -> ");
+    }
+    printf("\n");
 }

@@ -113,7 +113,7 @@ graph **createAdjList(int *v, int *e){
 	int source, dest;
 	graph *temp = malloc(sizeof(graph));
 	// Open a file in read mode
-	fptr = fopen("tests/graph.in", "r"); 
+	fptr = fopen("tests/star.in", "r"); 
 	fscanf(fptr, "%d", v); 
 	fscanf(fptr, "%d", e);
 	
