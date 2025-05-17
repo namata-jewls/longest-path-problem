@@ -4,6 +4,7 @@
 #include<stdio.h>
 #include<malloc.h>
 #include<string.h>
+#include<time.h>
 #define NEG_INF -999999
 
 typedef struct node{
@@ -20,13 +21,20 @@ void deleteGraph(graph **, int);
 int main(){
 	graph **g, *path;
 	int v, e, path_length = -1, best_mask, last_v;
+	clock_t time_before, time_after;
 	
 	g = createAdjList(&v, &e);
 	viewList(g, v);
-	
+
+	time_before = clock();
 	path = longestPath(g, &v, &path_length, &best_mask, &last_v);
+	time_after = clock();
+
 	printf("longest_path_length: %d\n", path_length);
 	viewLongestPath(path);
+
+	double time_elapsed = (double) (time_after - time_before) / CLOCKS_PER_SEC; 
+	printf("time elapsed: %f\n", time_elapsed);
 
 	deleteGraph(g, v);
 

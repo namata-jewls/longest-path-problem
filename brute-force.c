@@ -1,12 +1,11 @@
-
 // Namata, Julius Christian I.  | 2022-02219
 // Pascual, Jamaika T. | 2021-02167
 
 #include<stdio.h>
 #include<malloc.h>
 #include <stdbool.h>
+#include<time.h>
 #define MAX_V 100
-
 
 typedef struct node{
 	int x;
@@ -25,13 +24,20 @@ int currentPath[MAX_V];
 int main(){
 	graph **g;
 	int v, e;
+	clock_t time_before, time_after;
 	
 	g = createAdjList(&v, &e);
 	viewList(g, v);
 
+	time_before = clock();
 	int longest = bruteLongestPath(g, v);
+	time_after = clock();
+
     printf("\nLongest path length: %d\n", longest);
 	viewLongestPath(longest);
+	
+	double time_elapsed = (double) (time_after - time_before) / CLOCKS_PER_SEC; 
+	printf("time elapsed: %f\n", time_elapsed);
 	
 	deleteGraph(g, v);
 
