@@ -1,0 +1,237 @@
+branch.in
+5
+4
+0 1
+1 2
+1 3
+3 4
+// longest path length: 3
+
+
+brute-force:
+0:   1
+1:   3  2  0
+2:   1
+3:   4  1
+4:   3
+
+Longest path length: 3
+Longest path: 0 -> 1 -> 3 -> 4
+
+
+non-brute-force:
+0:   1
+1:   3  2  0
+2:   1
+3:   4  1
+4:   3
+longest_path_length: 3
+Longest path: 4 -> 3 -> 1 -> 0
+
+
+
+///////////////////////////////
+
+
+
+complete.in
+4
+6
+0 1
+0 2
+0 3
+1 2
+1 3
+2 3
+// longest path length: 3
+
+
+brute-force:
+0:   3  2  1
+1:   3  2  0
+2:   3  1  0
+3:   2  1  0
+
+Longest path length: 3
+Longest path: 0 -> 3 -> 2 -> 1
+
+
+non-brute-force:
+0:   3  2  1
+1:   3  2  0
+2:   3  1  0
+3:   2  1  0
+longest_path_length: 3
+Longest path: 1 -> 2 -> 3 -> 0
+
+
+
+//////////////////////////////
+
+
+cycle.in
+5
+5
+0 1
+1 2
+2 3
+3 4
+4 0
+// longest path length: 4
+
+
+brute-force:
+0:   4  1
+1:   2  0
+2:   3  1
+3:   4  2
+4:   0  3
+
+Longest path length: 4
+Longest path: 0 -> 4 -> 3 -> 2 -> 1
+
+
+non-brute-force:
+0:   4  1
+1:   2  0
+2:   3  1
+3:   4  2
+4:   0  3
+longest_path_length: 4
+Longest path: 1 -> 2 -> 3 -> 4 -> 0
+
+
+////////////////////////////////////
+
+disconnected.in
+5
+3
+0 1
+2 3
+3 4
+// longest path length: 2
+
+brute-force:
+0:   1
+1:   0
+2:   3
+3:   4  2
+4:   3
+
+Longest path length: 2
+Longest path: 2 -> 3 -> 4
+
+
+non-brute-force:
+0:   1
+1:   0
+2:   3
+3:   4  2
+4:   3
+longest_path_length: 2
+Longest path: 4 -> 3 -> 2
+
+
+/////////////////////////
+
+graph.in
+5
+6
+0 1
+0 2
+1 2
+1 3
+2 3
+3 4
+// longest path length: 4
+
+brute-force:
+0:   2  1
+1:   3  2  0
+2:   3  1  0
+3:   4  2  1
+4:   3
+
+Longest path length: 4
+Longest path: 0 -> 2 -> 1 -> 3 -> 4
+
+
+non-brute-force:
+0:   2  1
+1:   3  2  0
+2:   3  1  0
+3:   4  2  1
+4:   3
+longest_path_length: 4
+Longest path: 4 -> 3 -> 1 -> 2 -> 0
+
+
+/////////////////////////////////////
+
+
+linear.in
+5
+4
+0 1
+1 2
+2 3
+3 4
+// longest path length: 4
+
+
+brute-force:
+0:   1
+1:   2  0
+2:   3  1
+3:   4  2
+4:   3
+
+Longest path length: 4
+Longest path: 0 -> 1 -> 2 -> 3 -> 4
+
+
+non-brute-force:
+0:   1
+1:   2  0
+2:   3  1
+3:   4  2
+4:   3
+longest_path_length: 4
+Longest path: 4 -> 3 -> 2 -> 1 -> 0
+
+
+////////////////////////////////////
+
+
+star.in
+5
+4
+0 1
+0 2
+0 3
+0 4
+// longest path length: 2
+
+brute-force:
+0:   4  3  2  1
+1:   0
+2:   0
+3:   0
+4:   0
+
+Longest path length: 2
+Longest path: 1 -> 0 -> 4
+
+non-brute-force:
+0:   4  3  2  1
+1:   0
+2:   0
+3:   0
+4:   0
+longest_path_length: 2
+Longest path: 2 -> 0 -> 1
+
+
+
+
+
