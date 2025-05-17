@@ -38,7 +38,7 @@ int main(){
 	
 	double time_elapsed = (double) (time_after - time_before) / CLOCKS_PER_SEC; 
 	printf("time elapsed: %f\n", time_elapsed);
-	
+
 	deleteGraph(g, v);
 
 	return 0;
@@ -50,7 +50,7 @@ graph **createAdjList(int *v, int *e){
 	int source, dest;
 	graph *temp = malloc(sizeof(graph));
 	// Open a file in read mode
-	fptr = fopen("tests/star.in", "r"); 
+	fptr = fopen("tests/sparse/24.in", "r"); 
 	fscanf(fptr, "%d", v); 
 	fscanf(fptr, "%d", e);
 	

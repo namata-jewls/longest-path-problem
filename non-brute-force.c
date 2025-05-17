@@ -46,13 +46,13 @@ graph *longestPath(graph **g, int *v, int *path_length, int *best_mask, int *las
 	graph *path = (graph *) malloc(sizeof(graph)), *adj;
 	path->next = NULL;
 	int subsets = 1 << *v; // equal to 2^v
-	int dp[subsets][*v], parent[subsets][*v], adj_mask;
-	memset(parent, -1, sizeof(parent));
-	// initialize dp elemetnts to -inf
-	for(int i=0; i<subsets; i++)
-		for(int j=0; j<*v; j++)
-			dp[i][j] = NEG_INF;
-
+	int **dp=malloc(sizeof(int*)*subsets), **parent=malloc(sizeof(int*)*subsets), adj_mask;
+	for(int i=0; i<subsets; i++){
+		dp[i] = malloc(sizeof(int)*(*v));
+		parent[i] = malloc(sizeof(int)*(*v));
+		memset(dp[i], NEG_INF, sizeof(dp[i]));	// initialize dp elemetnts to -inf	
+		memset(parent[i], -1, sizeof(parent[i]));
+	}
 	// re-initialize paths starting and ending at the same vertex to zero  
 	for(int i=0; i<*v; i++) dp[1 << i][i] = 0;
 
@@ -101,7 +101,7 @@ graph *longestPath(graph **g, int *v, int *path_length, int *best_mask, int *las
         mask = mask ^ (1 << temp);
         temp = prev;
     }
-
+    path = path->next;
 	return path;
 }
 
@@ -121,7 +121,7 @@ graph **createAdjList(int *v, int *e){
 	int source, dest;
 	graph *temp = malloc(sizeof(graph));
 	// Open a file in read mode
-	fptr = fopen("tests/star.in", "r"); 
+	fptr = fopen("tests/sparse/24.in", "r"); 
 	fscanf(fptr, "%d", v); 
 	fscanf(fptr, "%d", e);
 	
