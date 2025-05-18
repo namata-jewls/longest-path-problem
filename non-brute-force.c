@@ -12,18 +12,23 @@ typedef struct node{
 	struct node *next;
 }graph;
 
-graph **createAdjList(int *, int *);
+graph **createAdjList(int *, int *, char[]);
 graph *longestPath(graph **, int *, int *, int *, int *);
 void viewLongestPath(graph *);
 void viewList(graph **, int);
 void deleteGraph(graph **, int);
 
-int main(){
+int main(int argc, char *argv[]){
 	graph **g, *path;
 	int v, e, path_length = -1, best_mask, last_v;
 	clock_t time_before, time_after;
+
+	if(argc != 2){
+		fprintf(stderr, "usage: ./nbf <file directory/name>\n");
+		return -1;
+	}
 	
-	g = createAdjList(&v, &e);
+	g = createAdjList(&v, &e, argv[1]);
 	viewList(g, v);
 
 	time_before = clock();
@@ -115,13 +120,13 @@ void viewLongestPath(graph *path){
 	}
 }
 
-graph **createAdjList(int *v, int *e){
+graph **createAdjList(int *v, int *e, char filename[]){
 	/*insert code here for creating an adjacency list*/
 	FILE *fptr;
 	int source, dest;
 	graph *temp = malloc(sizeof(graph));
 	// Open a file in read mode
-	fptr = fopen("tests/sparse/24.in", "r"); 
+	fptr = fopen(filename, "r"); 
 	fscanf(fptr, "%d", v); 
 	fscanf(fptr, "%d", e);
 	

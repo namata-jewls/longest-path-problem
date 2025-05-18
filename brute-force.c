@@ -12,7 +12,7 @@ typedef struct node{
 	struct node *next;
 }graph;
 
-graph **createAdjList(int *, int *);
+graph **createAdjList(int *, int *, char[]);
 void viewList(graph **, int);
 void deleteGraph(graph **, int);
 int  bruteLongestPath(graph **g, int v);
@@ -21,12 +21,17 @@ void viewLongestPath(int len);
 int bestPath[MAX_V];
 int currentPath[MAX_V];
 
-int main(){
+int main(int argc, char *argv[]){
 	graph **g;
 	int v, e;
 	clock_t time_before, time_after;
 	
-	g = createAdjList(&v, &e);
+	if(argc != 2){
+		fprintf(stderr, "usage: ./bf <file directory/name>\n");
+		return -1;
+	}
+
+	g = createAdjList(&v, &e, argv[1]);
 	viewList(g, v);
 
 	time_before = clock();
@@ -44,13 +49,13 @@ int main(){
 	return 0;
 }
 
-graph **createAdjList(int *v, int *e){
+graph **createAdjList(int *v, int *e, char filename[]){
 	/*insert code here for creating an adjacency list*/
 	FILE *fptr;
 	int source, dest;
 	graph *temp = malloc(sizeof(graph));
 	// Open a file in read mode
-	fptr = fopen("tests/sparse/24.in", "r"); 
+	fptr = fopen(filename, "r"); 
 	fscanf(fptr, "%d", v); 
 	fscanf(fptr, "%d", e);
 	
